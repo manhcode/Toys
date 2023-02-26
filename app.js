@@ -14,7 +14,7 @@ app.use(logger("dev"));
 // set up mongoose
 mongoose
     .connect(
-        "mongodb+srv://manhnguyen:badao123@cluster0.jxtwqo0.mongodb.net/toys?retryWrites=true&w=majority",
+        "mongodb+srv://manhnguyen:badao123@cluster0.jxtwqo0.mongodb.net/?retryWrites=true&w=majority",
         { useNewUrlParser: true, useUnifiedTopology: true }
     )
     .then(() => {
