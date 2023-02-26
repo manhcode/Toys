@@ -28,7 +28,7 @@ mongoose
 app.use("/api/", mainRoutes);
 
 // set up port
-const port = 5035;
+const port = process.env.PORT || "3000";
 // set up route
 app.get("/", (req, res) => {
     res.status(200).json({
