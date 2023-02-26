@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            td,
+            th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+        </style>
+    </head>
+    <body style="display: flex; justify-content: center">
+        <div
+            style="
+                width: 50%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            "
+        >
+            <table class="ta">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if(toys != null) { %> <% toys.forEach(function(toy) { %>
+                    <tr>
+                        <td><input placeholder="<%= toy.title %>" /></td>
+                        <td><input placeholder="<%= toy.description %>" /></td>
+                        <td>
+                            <button onclick='updateToy("<%= toy._id %>")'>
+                                Update
+                            </button>
+                        </td>
+                        <td>
+                            <button onclick='deleteToy("<%= toy._id %>")'>
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                    <% }); %> <% } %>
+                    <tr>
+                        <td><input placeholder="Enter new title" /></td>
+                        <td><input placeholder="Enter new description" /></td>
+                        <td>
+                            <button onclick="insertToy()">Insert</button>
+                        </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+    <script>
+        async function updateToy(id) {
+            const allToys = JSON.parse(
+                "<%= JSON.stringify(toys) %>".replaceAll("&#34;", '"')
+            );
+            const idx = allToys.findIndex((toy) => toy._id === id);
+            const inputs = document.querySelectorAll("input");
+
+            const resp = await fetch(
+                `${
+                    process.env.NODE_ENV
+                        ? "https://apptoy.herokuapp.com/"
+                        : "http://localhost:3000/"
+                }api/toys/${id}`,
+                {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        title: inputs[idx].value || allToys[idx].title,
+                        description:
+                            inputs[idx + 1].value || allToys[idx].description,
+                    }),
+                }
+            );
+
+            location.reload();
+        }
+
+        async function deleteToy(id) {
+            const resp = await fetch(
+                `${
+                    process.env.NODE_ENV
+                        ? "https://apptoy.herokuapp.com/"
+                        : "http://localhost:3000/"
+                }api/toys/${id}`,
+                {
+                    method: "DELETE",
+                }
+            );
+
+            location.reload();
+        }
+
+        async function insertToy() {
+            const inputs = document.querySelectorAll("input");
+
+            const resp = await fetch(
+                `${
+                    process.env.NODE_ENV
+                        ? "https://apptoy.herokuapp.com/"
+                        : "http://localhost:3000/"
+                }api/toys`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        title: inputs[inputs.length - 2].value,
+                        description: inputs[inputs.length - 1].value,
+                    }),
+                }
+            );
+
+            location.reload();
+        }
+    </script>
+</html>

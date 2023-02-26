@@ -57,7 +57,7 @@ exports.updateToy = async (req, res) => {
             res.status(200).json({
                 success: true,
                 message: "Toy is updated",
-                updateCourse: updateObject,
+                updateToy: updateObject,
             });
         })
         .catch((err) => {
