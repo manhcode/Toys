@@ -5,8 +5,9 @@ const Toy = require("../models/toy");
 exports.createToy = async (req, res) => {
     const toy = new Toy({
         _id: mongoose.Types.ObjectId(),
-        title: req.body.title,
-        description: req.body.description,
+        name: req.body.name,
+        price: req.body.price,
+        quantity: req.body.quantity,
     });
 
     return toy
@@ -31,7 +32,7 @@ exports.createToy = async (req, res) => {
 // Get all toys
 exports.getAllToy = async (req, res) => {
     Toy.find()
-        .select("_id title description")
+        .select("_id name price quantity")
         .then((allToy) => {
             return res.status(200).json({
                 success: true,

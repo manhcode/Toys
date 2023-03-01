@@ -20,7 +20,7 @@ app.set("view engine", "ejs");
 // set up mongoose
 mongoose
     .connect(
-        "mongodb+srv://root:admin@learnit.lgi9d.mongodb.net/Toys?retryWrites=true&w=majority",
+        "mongodb+srv://manhnguyen:badao123@cluster0.jxtwqo0.mongodb.net/toys?retryWrites=true&w=majority",
         { useNewUrlParser: true, useUnifiedTopology: true }
     )
     .then(() => {
