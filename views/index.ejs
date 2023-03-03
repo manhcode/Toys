@@ -62,7 +62,7 @@
                 <tbody>
                     <% if(toys != null) { %> <% toys.forEach(function(toy) { %>
                     <tr>
-                        <td><input placeholder="<%= toy._id %>" /></td>
+                        <td><%= toy._id %></td>
                         <td><input placeholder="<%= toy.name %>" /></td>
                         <td><input placeholder="<%= toy.price %>" /></td>
                         <td><input placeholder="<%= toy.quantity %>" /></td>
@@ -137,10 +137,10 @@
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        name: inputs[idx + 1].value || allToys[idx].name,
-                        price: inputs[idx + 2].value || allToys[idx].price,
+                        name: inputs[idx].value || allToys[idx].name,
+                        price: inputs[idx + 1].value || allToys[idx].price,
                         quantity:
-                            inputs[idx + 3].value || allToys[idx].quantity,
+                            inputs[idx + 2].value || allToys[idx].quantity,
                     }),
                 }
             );
