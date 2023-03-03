@@ -51,6 +51,7 @@ exports.getAllToy = async (req, res) => {
 
 exports.updateToy = async (req, res) => {
     const id = req.params.toyId;
+
     const updateObject = req.body;
     Toy.update({ _id: id }, { $set: updateObject })
         .exec()

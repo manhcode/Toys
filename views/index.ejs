@@ -137,9 +137,10 @@
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        title: inputs[idx].value || allToys[idx].title,
-                        description:
-                            inputs[idx + 1].value || allToys[idx].description,
+                        name: inputs[idx + 1].value || allToys[idx].name,
+                        price: inputs[idx + 2].value || allToys[idx].price,
+                        quantity:
+                            inputs[idx + 3].value || allToys[idx].quantity,
                     }),
                 }
             );
